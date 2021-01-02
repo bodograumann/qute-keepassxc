@@ -128,10 +128,11 @@ class KeepassXC:
     def send_msg(self, msg, **extra):
         nonce = nacl.utils.random(nacl.public.Box.NONCE_SIZE)
         self.send_raw_msg(dict(
-            action   = msg['action'],
-            message  = base64.b64encode(self.cryptobox.encrypt(simplejson.dumps(msg).encode('utf-8'), nonce).ciphertext),
-            nonce    = base64.b64encode(nonce),
-            clientID = self.client_id,
+            action        = msg['action'],
+            message       = base64.b64encode(self.cryptobox.encrypt(simplejson.dumps(msg).encode('utf-8'), nonce).ciphertext),
+            nonce         = base64.b64encode(nonce),
+            clientID      = self.client_id,
+            triggerUnlock = 'true',
             **extra
         ))
 
